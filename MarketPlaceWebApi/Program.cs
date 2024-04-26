@@ -51,6 +51,27 @@ builder.Services.AddSwaggerGen(option => {
 
 var app = builder.Build();
 
+AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", true);
+
+using (var scope = app.Services.CreateScope())
+{
+    var services = scope.ServiceProvider;
+    try
+    {
+        var context = services.GetRequiredService<AppPostgreSQLDbContext>();
+        context.Database.Migrate();
+
+        var userManager = services.GetRequiredService<UserManager<Account>>();
+        var rolesManager = services.GetRequiredService<RoleManager<Role>>();
+        await DefaultInitializer.InitializeAsync(userManager, rolesManager, context);
+    }
+    catch (Exception ex)
+    {
+        var logger = services.GetRequiredService<ILogger<Program>>();
+        logger.LogError(ex, "An error occurred while seeding the database.");
+    }
+}
+
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
