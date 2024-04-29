@@ -1,6 +1,5 @@
 ﻿using AuthenticationWebApi.Helpers.ApplicationException;
 using AuthenticationWebApi.Helpers.Jwt;
-using AuthenticationWebApi.Models.Account;
 using System.Net;
 using System.Text.Json;
 
