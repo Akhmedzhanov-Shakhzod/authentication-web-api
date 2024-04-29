@@ -78,8 +78,6 @@ using (var scope = app.Services.CreateScope())
     try
     {
         var context = services.GetRequiredService<AppPostgreSQLDbContext>();
-        context.Database.Migrate();
-
         var userManager = services.GetRequiredService<UserManager<Account>>();
         var rolesManager = services.GetRequiredService<RoleManager<Role>>();
         await DefaultInitializer.InitializeAsync(userManager, rolesManager, context);
