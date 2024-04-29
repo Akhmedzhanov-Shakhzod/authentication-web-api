@@ -9,10 +9,14 @@ services:
       dockerfile: Dockerfile
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
-      # - ASPNETCORE_URLS=http://+:80;https://+:443
-      - ASPNETCORE_URLS=http://+:80
+      - ASPNETCORE_URLS=http://+:80;https://+:443
+      # - ASPNETCORE_URLS=http://+:80
       - TZ=Asia/Bishkek
+      - ASPNETCORE_Kestrel__Certificates__Default__Password=mypassword
+      - ASPNETCORE_Kestrel__Certificates__Default__Path=/app/aspnetapp.pfx
     ports:
       - "1001:80"
-      # - "1002:443"
+      - "1002:443"
+    volumes:
+        - ./aspnetapp.pfx:/app/aspnetapp.pfx
     restart: always
