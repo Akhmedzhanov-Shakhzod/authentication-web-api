@@ -1,7 +1,6 @@
 ﻿using AuthenticationWebApi.Helpers.ApplicationException;
 using AuthenticationWebApi.Helpers.Jwt;
 using AuthenticationWebApi.Models.Account;
-using Microsoft.AspNetCore.Identity;
 using System.Net;
 using System.Text.Json;
 
@@ -9,20 +8,15 @@ namespace AuthenticationWebApi.Helpers.Middleware
 {
     public class ErrorHandlerMiddleware(RequestDelegate next, ILogger<ErrorHandlerMiddleware> logger)
     {
-        public async Task Invoke(HttpContext context, UserManager<Account> userManager, IJwtUtils jwtUtils)
+        public async Task Invoke(HttpContext context, IJwtUtils jwtUtils)
         {
             try
             {
                 var token = context.Request.Headers["Authorization"].FirstOrDefault()?.Split(" ").Last();
-                var accountId = jwtUtils.ValidateJwtToken(token);
+                var authentication = jwtUtils.ValidateJwtToken(token);
 
-                if (accountId != null)
-                {
-                    // attach account to context on successful jwt validation
-                    var account = await userManager.FindByIdAsync(accountId);
-
-                    context.Items["Account"] = account;
-                }
+                context.Items["AccountId"] = authentication.Item1;
+                context.Items["AccountRoles"] = authentication.Item2;
 
                 await next(context);
             }

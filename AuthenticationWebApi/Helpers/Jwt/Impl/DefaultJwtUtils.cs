@@ -1,4 +1,5 @@
 ﻿using AuthenticationWebApi.Helpers.Constant;
+using AuthenticationWebApi.Mappers.Account;
 using AuthenticationWebApi.Models.Account;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
@@ -8,7 +9,7 @@ using System.Text;
 
 namespace AuthenticationWebApi.Helpers.Jwt.Impl
 {
-    public class DefaultJwtUtils(IOptions<AppSettings> appSettings) : IJwtUtils
+    public class DefaultJwtUtils(IOptions<AppSettings> appSettings, IRoleMapper roleMapper) : IJwtUtils
     {
         public string GenerateJwtToken(Account account)
         {
@@ -16,7 +17,11 @@ namespace AuthenticationWebApi.Helpers.Jwt.Impl
             var key = Encoding.ASCII.GetBytes(appSettings.Value.Secret);
             var tokenDescriptor = new SecurityTokenDescriptor
             {
-                Subject = new ClaimsIdentity(new[] { new Claim("id", account.Id) }),
+                Subject = new ClaimsIdentity(new[] 
+                { 
+                    new Claim("id", account.Id),
+                    new Claim("roles", string.Join(",", roleMapper.ToRoles(account)))
+                }),
                 Expires = DateTime.Now.AddMinutes(appSettings.Value.JwtTokenTTL),
                 SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)
             };
@@ -25,10 +30,10 @@ namespace AuthenticationWebApi.Helpers.Jwt.Impl
             return tokenHandler.WriteToken(token);
         }
 
-        public string? ValidateJwtToken(string token)
+        public (string?, List<string>?) ValidateJwtToken(string token)
         {
             if (token is null)
-                return null;
+                return (null, null);
 
             var tokenHandler = new JwtSecurityTokenHandler();
             var key = Encoding.ASCII.GetBytes(appSettings.Value.Secret);
@@ -46,14 +51,15 @@ namespace AuthenticationWebApi.Helpers.Jwt.Impl
 
                 var jwtToken = (JwtSecurityToken)validatedToken;
                 var accountId = jwtToken.Claims.First(x => x.Type == "id").Value;
+                var accountRoles = jwtToken.Claims.First(x => x.Type == "roles").Value.Split(',').ToList();
 
                 // return account id from JWT token if validation successful
-                return accountId;
+                return (accountId, accountRoles);
             }
             catch
             {
                 // return null if validation fails
-                return null;
+                return (null, null);
             }
         }
     }

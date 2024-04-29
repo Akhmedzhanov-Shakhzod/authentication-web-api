@@ -3,7 +3,6 @@ using AuthenticationWebApi.Helpers.Constant;
 using Microsoft.AspNetCore.Mvc.Filters;
 using Microsoft.AspNetCore.Mvc;
 using AuthenticationWebApi.Models.Account;
-using AuthenticationWebApi.Mappers.Account;
 
 namespace AuthenticationWebApi.Helpers.Attribute
 {
@@ -28,19 +27,17 @@ namespace AuthenticationWebApi.Helpers.Attribute
                 return;
 
             // authorization
-            var account = (Account)context.HttpContext.Items["Account"];
-            if (account == null)
+            var accountId = (string)context.HttpContext.Items["AccountId"];
+            if (accountId == null)
             {
-                // not logged in or role not authorized
                 context.Result = new JsonResult(new { message = "Unauthorized" }) { StatusCode = StatusCodes.Status401Unauthorized };
             }
             else if (_roles.Count > 0)
             {
                 var serviceProvider = context.HttpContext.RequestServices;
-                var _mapper = serviceProvider.GetRequiredService(typeof(IRoleMapper)) as IRoleMapper;
-                var userRoles = _mapper.ToRoles(account);
+                var userRoles = (List<string>)context.HttpContext.Items["AccountRoles"];
 
-                if (!userRoles.Any(ur => ur == AppConstants.Role_AdminRole || _roles.Contains(ur)))
+                if (userRoles == null || !userRoles.Any(ur => ur == AppConstants.Role_AdminRole || _roles.Contains(ur)))
                 {
                     throw new ForbiddenException("Доступ запрещен :(");
                 }

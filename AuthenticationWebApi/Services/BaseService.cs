@@ -1,9 +1,7 @@
-﻿using User = AuthenticationWebApi.Models.Account.Account;
-
-namespace AuthenticationWebApi.Services
+﻿namespace AuthenticationWebApi.Services
 {
     public class BaseService(IHttpContextAccessor httpContextAccessor)
     {
-        protected User getCurrentAccount() => (User)httpContextAccessor.HttpContext.Items["Account"];
+        protected string getCurrentAccountId() => (string)httpContextAccessor.HttpContext.Items["AccountId"];
     }
 }

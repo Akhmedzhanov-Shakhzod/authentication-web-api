@@ -6,6 +6,6 @@ namespace AuthenticationWebApi.Helpers.Jwt
     {
         string GenerateJwtToken(Account account);
 
-        string? ValidateJwtToken(string token);
+        (string?, List<string>?) ValidateJwtToken(string token);
     }
 }
