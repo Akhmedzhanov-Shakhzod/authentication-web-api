@@ -1,6 +1,6 @@
-﻿using User = MarketPlaceWebApi.Models.Account.Account;
+﻿using User = AuthenticationWebApi.Models.Account.Account;
 
-namespace MarketPlaceWebApi.Mapper.Account
+namespace AuthenticationWebApi.Mapper.Account
 {
     public interface IRoleMapper
     {

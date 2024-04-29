@@ -1,4 +1,4 @@
-﻿namespace MarketPlaceWebApi.Helpers.Constant
+﻿namespace AuthenticationWebApi.Helpers.Constant
 {
     public class AppSettings
     {

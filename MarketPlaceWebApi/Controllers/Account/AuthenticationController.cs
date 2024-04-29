@@ -1,11 +1,11 @@
-﻿using MarketPlaceWebApi.Dtos.Account;
-using MarketPlaceWebApi.Helpers.Attribute;
-using MarketPlaceWebApi.Helpers.Constant;
-using MarketPlaceWebApi.Services.Account;
+﻿using AuthenticationWebApi.Dtos.Account;
+using AuthenticationWebApi.Helpers.Attribute;
+using AuthenticationWebApi.Helpers.Constant;
+using AuthenticationWebApi.Services.Account;
 using Microsoft.AspNetCore.Mvc;
 using System.ComponentModel.DataAnnotations;
 
-namespace MarketPlaceWebApi.Controllers.Account
+namespace AuthenticationWebApi.Controllers.Account
 {
     [Authorize(AppConstants.Role_AdminRole)]
     [Route("api/v1/[controller]")]

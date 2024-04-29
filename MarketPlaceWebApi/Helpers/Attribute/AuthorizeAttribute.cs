@@ -1,11 +1,11 @@
-﻿using MarketPlaceWebApi.Helpers.ApplicationException;
-using MarketPlaceWebApi.Helpers.Constant;
+﻿using AuthenticationWebApi.Helpers.ApplicationException;
+using AuthenticationWebApi.Helpers.Constant;
 using Microsoft.AspNetCore.Mvc.Filters;
 using Microsoft.AspNetCore.Mvc;
-using MarketPlaceWebApi.Models.Account;
-using MarketPlaceWebApi.Mapper.Account;
+using AuthenticationWebApi.Models.Account;
+using AuthenticationWebApi.Mapper.Account;
 
-namespace MarketPlaceWebApi.Helpers.Attribute
+namespace AuthenticationWebApi.Helpers.Attribute
 {
     [AttributeUsage(AttributeTargets.Class | AttributeTargets.Method)]
     public class AuthorizeAttribute : System.Attribute, IAuthorizationFilter

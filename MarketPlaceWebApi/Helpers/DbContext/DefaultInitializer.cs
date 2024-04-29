@@ -1,8 +1,8 @@
-﻿using MarketPlaceWebApi.Helpers.Constant;
-using MarketPlaceWebApi.Models.Account;
+﻿using AuthenticationWebApi.Helpers.Constant;
+using AuthenticationWebApi.Models.Account;
 using Microsoft.AspNetCore.Identity;
 
-namespace MarketPlaceWebApi.Helpers.DbContext
+namespace AuthenticationWebApi.Helpers.DbContext
 {
     public class DefaultInitializer
     {

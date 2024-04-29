@@ -1,4 +1,4 @@
-﻿namespace MarketPlaceWebApi.Models.Account
+﻿namespace AuthenticationWebApi.Models.Account
 {
     public class RefreshToken
     {

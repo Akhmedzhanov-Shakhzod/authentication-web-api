@@ -1,17 +1,17 @@
 ﻿using AutoMapper;
-using MarketPlaceWebApi.Dtos.Account;
-using MarketPlaceWebApi.Helpers.ApplicationException;
-using MarketPlaceWebApi.Helpers.Constant;
-using MarketPlaceWebApi.Helpers.DbContext;
-using MarketPlaceWebApi.Helpers.Jwt;
-using MarketPlaceWebApi.Models.Account;
+using AuthenticationWebApi.Dtos.Account;
+using AuthenticationWebApi.Helpers.ApplicationException;
+using AuthenticationWebApi.Helpers.Constant;
+using AuthenticationWebApi.Helpers.DbContext;
+using AuthenticationWebApi.Helpers.Jwt;
+using AuthenticationWebApi.Models.Account;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
 using System.Security.Cryptography;
-using User = MarketPlaceWebApi.Models.Account.Account;
+using User = AuthenticationWebApi.Models.Account.Account;
 
-namespace MarketPlaceWebApi.Services.Account.Impl
+namespace AuthenticationWebApi.Services.Account.Impl
 {
     public class DefaultAccountService : BaseService, IAccountService
     {

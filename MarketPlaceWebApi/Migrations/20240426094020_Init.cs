@@ -3,7 +3,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 #nullable disable
 
-namespace MarketPlaceWebApi.Migrations
+namespace AuthenticationWebApi.Migrations
 {
     /// <inheritdoc />
     public partial class Init : Migration

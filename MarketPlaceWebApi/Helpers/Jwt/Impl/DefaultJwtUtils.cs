@@ -1,12 +1,12 @@
-﻿using MarketPlaceWebApi.Helpers.Constant;
-using MarketPlaceWebApi.Models.Account;
+﻿using AuthenticationWebApi.Helpers.Constant;
+using AuthenticationWebApi.Models.Account;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
 
-namespace MarketPlaceWebApi.Helpers.Jwt.Impl
+namespace AuthenticationWebApi.Helpers.Jwt.Impl
 {
     public class DefaultJwtUtils(IOptions<AppSettings> appSettings) : IJwtUtils
     {

@@ -1,6 +1,6 @@
-﻿using User = MarketPlaceWebApi.Models.Account.Account;
+﻿using User = AuthenticationWebApi.Models.Account.Account;
 
-namespace MarketPlaceWebApi.Services
+namespace AuthenticationWebApi.Services
 {
     public class BaseService(IHttpContextAccessor httpContextAccessor)
     {

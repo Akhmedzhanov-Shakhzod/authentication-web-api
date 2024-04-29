@@ -1,8 +1,8 @@
 ﻿using AutoMapper;
-using MarketPlaceWebApi.Dtos.Account;
-using User = MarketPlaceWebApi.Models.Account.Account;
+using AuthenticationWebApi.Dtos.Account;
+using User = AuthenticationWebApi.Models.Account.Account;
 
-namespace MarketPlaceWebApi.Mapper.AutoMapper
+namespace AuthenticationWebApi.Mapper.AutoMapper
 {
     public class AutoMapperProfile : Profile
     {

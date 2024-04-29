@@ -1,8 +1,8 @@
-﻿using MarketPlaceWebApi.Models.Account;
+﻿using AuthenticationWebApi.Models.Account;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
-namespace MarketPlaceWebApi.Helpers.DbContext
+namespace AuthenticationWebApi.Helpers.DbContext
 {
     public class AppPostgreSQLDbContext : IdentityDbContext<Account, Role, string>
     {

@@ -1,11 +1,11 @@
-﻿using MarketPlaceWebApi.Helpers.ApplicationException;
-using MarketPlaceWebApi.Helpers.Jwt;
-using MarketPlaceWebApi.Models.Account;
+﻿using AuthenticationWebApi.Helpers.ApplicationException;
+using AuthenticationWebApi.Helpers.Jwt;
+using AuthenticationWebApi.Models.Account;
 using Microsoft.AspNetCore.Identity;
 using System.Net;
 using System.Text.Json;
 
-namespace MarketPlaceWebApi.Helpers.Middleware
+namespace AuthenticationWebApi.Helpers.Middleware
 {
     public class ErrorHandlerMiddleware(RequestDelegate next, ILogger<ErrorHandlerMiddleware> logger)
     {

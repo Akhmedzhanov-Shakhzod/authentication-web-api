@@ -1,7 +1,7 @@
-﻿using User = MarketPlaceWebApi.Models.Account.Account;
+﻿using User = AuthenticationWebApi.Models.Account.Account;
 using Microsoft.AspNetCore.Identity;
 
-namespace MarketPlaceWebApi.Mapper.Account.Impl
+namespace AuthenticationWebApi.Mapper.Account.Impl
 {
     public class DefaultRoleMapper(UserManager<User> userManager) : IRoleMapper
     {

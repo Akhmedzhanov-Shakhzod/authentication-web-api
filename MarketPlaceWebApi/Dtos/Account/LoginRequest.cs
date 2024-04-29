@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace MarketPlaceWebApi.Dtos.Account
+namespace AuthenticationWebApi.Dtos.Account
 {
     public class LoginRequest 
     {

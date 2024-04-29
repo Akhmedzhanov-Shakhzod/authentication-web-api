@@ -1,4 +1,4 @@
-﻿namespace MarketPlaceWebApi.Dtos.Account
+﻿namespace AuthenticationWebApi.Dtos.Account
 {
     public class AuthenticateResponse
     {

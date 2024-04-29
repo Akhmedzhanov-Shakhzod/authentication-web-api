@@ -1,6 +1,6 @@
 ﻿using System.Globalization;
 
-namespace MarketPlaceWebApi.Helpers.ApplicationException
+namespace AuthenticationWebApi.Helpers.ApplicationException
 {
     public class AppException : Exception
     {

@@ -1,6 +1,6 @@
-﻿using MarketPlaceWebApi.Dtos.Account;
+﻿using AuthenticationWebApi.Dtos.Account;
 
-namespace MarketPlaceWebApi.Services.Account
+namespace AuthenticationWebApi.Services.Account
 {
     public interface IAccountService
     {

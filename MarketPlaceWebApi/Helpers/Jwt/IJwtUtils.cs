@@ -1,6 +1,6 @@
-﻿using MarketPlaceWebApi.Models.Account;
+﻿using AuthenticationWebApi.Models.Account;
 
-namespace MarketPlaceWebApi.Helpers.Jwt
+namespace AuthenticationWebApi.Helpers.Jwt
 {
     public interface IJwtUtils
     {

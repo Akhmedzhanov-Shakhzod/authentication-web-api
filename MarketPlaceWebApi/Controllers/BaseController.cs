@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 
-namespace MarketPlaceWebApi.Controllers
+namespace AuthenticationWebApi.Controllers
 {
     [Controller]
     public class BaseController : ControllerBase

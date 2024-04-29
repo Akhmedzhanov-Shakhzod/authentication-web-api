@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Identity;
 
-namespace MarketPlaceWebApi.Models.Account
+namespace AuthenticationWebApi.Models.Account
 {
     public class Role : IdentityRole
     {
