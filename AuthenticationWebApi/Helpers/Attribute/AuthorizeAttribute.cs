@@ -2,7 +2,6 @@
 using AuthenticationWebApi.Helpers.Constant;
 using Microsoft.AspNetCore.Mvc.Filters;
 using Microsoft.AspNetCore.Mvc;
-using AuthenticationWebApi.Models.Account;
 
 namespace AuthenticationWebApi.Helpers.Attribute
 {
