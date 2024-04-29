@@ -1,6 +1,6 @@
 ﻿using User = AuthenticationWebApi.Models.Account.Account;
 
-namespace AuthenticationWebApi.Mapper.Account
+namespace AuthenticationWebApi.Mappers.Account
 {
     public interface IRoleMapper
     {

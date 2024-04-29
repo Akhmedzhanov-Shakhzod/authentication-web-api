@@ -2,7 +2,7 @@
 using AuthenticationWebApi.Dtos.Account;
 using User = AuthenticationWebApi.Models.Account.Account;
 
-namespace AuthenticationWebApi.Mapper.AutoMapper
+namespace AuthenticationWebApi.Mappers.AutoMapper
 {
     public class AutoMapperProfile : Profile
     {

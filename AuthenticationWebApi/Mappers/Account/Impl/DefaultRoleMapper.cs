@@ -1,7 +1,7 @@
 ﻿using User = AuthenticationWebApi.Models.Account.Account;
 using Microsoft.AspNetCore.Identity;
 
-namespace AuthenticationWebApi.Mapper.Account.Impl
+namespace AuthenticationWebApi.Mappers.Account.Impl
 {
     public class DefaultRoleMapper(UserManager<User> userManager) : IRoleMapper
     {
