@@ -10,6 +10,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
 using System.Security.Cryptography;
 using User = AuthenticationWebApi.Models.Account.Account;
+using AuthenticationWebApi.Mappers.Account;
 
 namespace AuthenticationWebApi.Services.Account.Impl
 {
@@ -20,6 +21,7 @@ namespace AuthenticationWebApi.Services.Account.Impl
         private readonly UserManager<User> _userManager;
         private readonly RoleManager<Role> _roleManager;
         private readonly IMapper _mapper;
+        private readonly IRoleMapper _roleMapper;
         private readonly IJwtUtils _jwtUtils;
 
         public DefaultAccountService(
@@ -28,6 +30,7 @@ namespace AuthenticationWebApi.Services.Account.Impl
             UserManager<User> userManager,
             RoleManager<Role> roleManager,
             IMapper mapper,
+            IRoleMapper roleMapper,
             IJwtUtils jwtUtils,
             IHttpContextAccessor httpContextAccessor
             ) : base(httpContextAccessor)
@@ -37,6 +40,7 @@ namespace AuthenticationWebApi.Services.Account.Impl
             _userManager = userManager;
             _roleManager = roleManager;
             _mapper = mapper;
+            _roleMapper = roleMapper;
             _jwtUtils = jwtUtils;
         }
 
@@ -153,6 +157,7 @@ namespace AuthenticationWebApi.Services.Account.Impl
             AuthenticateResponse response =_mapper.Map<AuthenticateResponse>(account);
             response.AccessToken = jwtToken;
             response.RefreshToken = refreshToken.Token;
+            response.Roles = _roleMapper.ToRoles(account);
 
             return response;
         }
@@ -185,6 +190,7 @@ namespace AuthenticationWebApi.Services.Account.Impl
             var response = _mapper.Map<AuthenticateResponse>(account);
             response.AccessToken = jwtToken;
             response.RefreshToken = newRefreshToken.Token;
+            response.Roles = _roleMapper.ToRoles(account);
 
             return response;
         }
