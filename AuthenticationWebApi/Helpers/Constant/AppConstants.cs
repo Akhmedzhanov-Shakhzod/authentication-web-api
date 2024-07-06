@@ -7,5 +7,6 @@
 
         public const string Role_AdminRole = "admin";
         public const string Role_ModeratorRole = "moderator";
+        public const string Role_Author = "author";
     }
 }

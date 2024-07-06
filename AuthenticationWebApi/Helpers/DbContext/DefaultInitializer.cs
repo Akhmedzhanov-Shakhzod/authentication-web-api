@@ -16,6 +16,10 @@ namespace AuthenticationWebApi.Helpers.DbContext
             {
                 await roleManager.CreateAsync(new Role { Name = AppConstants.Role_ModeratorRole });
             }
+            if (await roleManager.FindByNameAsync(AppConstants.Role_Author) == null)
+            {
+                await roleManager.CreateAsync(new Role { Name = AppConstants.Role_Author });
+            }
             if (await userManager.FindByNameAsync(AppConstants.Account_AdminEmail) == null)
             {
                 Account admin = new Account
@@ -30,6 +34,7 @@ namespace AuthenticationWebApi.Helpers.DbContext
                 if (result.Succeeded)
                 {
                     await userManager.AddToRoleAsync(admin, AppConstants.Role_ModeratorRole);
+                    await userManager.AddToRoleAsync(admin, AppConstants.Role_Author);
                     await userManager.AddToRoleAsync(admin, AppConstants.Role_AdminRole);
                 }
             }
