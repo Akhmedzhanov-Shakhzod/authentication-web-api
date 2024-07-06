@@ -1,5 +1,5 @@
 using AuthenticationWebApi.Helpers.Constant;
-using AuthenticationWebApi.Helpers.DbContext;
+using AuthenticationWebApi.Helpers.DataBaseContext;
 using AuthenticationWebApi.Helpers.Jwt;
 using AuthenticationWebApi.Helpers.Jwt.Impl;
 using AuthenticationWebApi.Helpers.Middleware;

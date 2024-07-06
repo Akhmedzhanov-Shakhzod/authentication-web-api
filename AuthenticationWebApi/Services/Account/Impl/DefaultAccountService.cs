@@ -2,7 +2,7 @@
 using AuthenticationWebApi.Dtos.Account;
 using AuthenticationWebApi.Helpers.ApplicationException;
 using AuthenticationWebApi.Helpers.Constant;
-using AuthenticationWebApi.Helpers.DbContext;
+using AuthenticationWebApi.Helpers.DataBaseContext;
 using AuthenticationWebApi.Helpers.Jwt;
 using AuthenticationWebApi.Models.Account;
 using Microsoft.AspNetCore.Identity;

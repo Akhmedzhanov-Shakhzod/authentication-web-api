@@ -2,7 +2,7 @@
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
-namespace AuthenticationWebApi.Helpers.DbContext
+namespace AuthenticationWebApi.Helpers.DataBaseContext
 {
     public class AppPostgreSQLDbContext : IdentityDbContext<Account, Role, string>
     {

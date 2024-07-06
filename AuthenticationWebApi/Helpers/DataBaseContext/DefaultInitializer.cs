@@ -2,7 +2,7 @@
 using AuthenticationWebApi.Models.Account;
 using Microsoft.AspNetCore.Identity;
 
-namespace AuthenticationWebApi.Helpers.DbContext
+namespace AuthenticationWebApi.Helpers.DataBaseContext
 {
     public class DefaultInitializer
     {
