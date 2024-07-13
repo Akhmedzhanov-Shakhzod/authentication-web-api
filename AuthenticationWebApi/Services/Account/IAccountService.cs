@@ -5,17 +5,13 @@ namespace AuthenticationWebApi.Services.Account
     public interface IAccountService
     {
         Task<AuthenticateResponse> LoginAsync(LoginRequest request);
-
         Task<AuthenticateResponse> RefreshTokenAsync(string token);
-
         AccountDto Get(string id);
-
         List<AccountDto> GetAll();
-
         Task<List<string>> GetRolesAsync();
-
-        Task<AccountDto> CreateAsync(RegisterRequest request);
-
+        Task<AccountDto> CreateAsync(CreateRequest request);
         Task<string> DeleteAsync(string id);
+        Task<AccountDto> RegisterAsync(RegisterRequest request);
+        Task<AccountDto> PutSettingsAsync(CreateAccountSettingsDto request);
     }
 }

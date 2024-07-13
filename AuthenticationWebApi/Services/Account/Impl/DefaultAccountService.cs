@@ -1,16 +1,16 @@
-﻿using AutoMapper;
-using AuthenticationWebApi.Dtos.Account;
+﻿using AuthenticationWebApi.Dtos.Account;
 using AuthenticationWebApi.Helpers.ApplicationException;
 using AuthenticationWebApi.Helpers.Constant;
 using AuthenticationWebApi.Helpers.DataBaseContext;
 using AuthenticationWebApi.Helpers.Jwt;
+using AuthenticationWebApi.Mappers.Account;
 using AuthenticationWebApi.Models.Account;
+using AutoMapper;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
 using System.Security.Cryptography;
 using User = AuthenticationWebApi.Models.Account.Account;
-using AuthenticationWebApi.Mappers.Account;
 
 namespace AuthenticationWebApi.Services.Account.Impl
 {
@@ -44,7 +44,7 @@ namespace AuthenticationWebApi.Services.Account.Impl
             _jwtUtils = jwtUtils;
         }
 
-        public async Task<AccountDto> CreateAsync(RegisterRequest request)
+        public async Task<AccountDto> CreateAsync(CreateRequest request)
         {
             if (await _userManager.FindByEmailAsync(request.Email) != null)
                 throw new BadRequestException("email", $"User with email = {request.Email} already exists");
@@ -66,6 +66,7 @@ namespace AuthenticationWebApi.Services.Account.Impl
                 Surname = request.Surname,
                 Name = request.Name,
                 Patronymic = request.Patronymic,
+                DateOfBirth = request.DateOfBirth,
                 CreatedAt = DateTime.Now
             };
 
@@ -105,6 +106,7 @@ namespace AuthenticationWebApi.Services.Account.Impl
         public AccountDto Get(string id)
         {
             var account = _userManager.Users
+                .Include(u => u.Settings)
                 .FirstOrDefault(u => u.Id == id);
 
             if (account is null)
@@ -154,10 +156,38 @@ namespace AuthenticationWebApi.Services.Account.Impl
             _context.Update(account);
             _context.SaveChanges();
 
-            AuthenticateResponse response =_mapper.Map<AuthenticateResponse>(account);
+            AuthenticateResponse response = _mapper.Map<AuthenticateResponse>(account);
             response.AccessToken = jwtToken;
             response.RefreshToken = refreshToken.Token;
             response.Roles = _roleMapper.ToRoles(account);
+
+            return response;
+        }
+
+        public async Task<AccountDto> PutSettingsAsync(CreateAccountSettingsDto request)
+        {
+            var account = await _userManager
+                .FindByIdAsync(getCurrentAccountId());
+
+            var link = await _context.AccountSettings
+                .FirstOrDefaultAsync(a => a.Link == request.Link && a.Id != account.Settings.Id);
+
+            if (link is not null)
+            {
+                throw new BadRequestException("link", "this link is already using :(, try another one");
+            }
+
+            _context.Entry(account.Settings).State = EntityState.Detached;
+
+            var newSettings = _mapper.Map<AccountSettings>(request);
+            newSettings.Id = account.Settings.Id;
+
+            account.Settings = newSettings;
+
+            _context.AccountSettings.Update(newSettings);
+            await _context.SaveChangesAsync();
+
+            AccountDto response = _mapper.Map<AccountDto>(account);
 
             return response;
         }
@@ -191,6 +221,33 @@ namespace AuthenticationWebApi.Services.Account.Impl
             response.AccessToken = jwtToken;
             response.RefreshToken = newRefreshToken.Token;
             response.Roles = _roleMapper.ToRoles(account);
+
+            return response;
+        }
+
+        public async Task<AccountDto> RegisterAsync(RegisterRequest request)
+        {
+            if (await _userManager.FindByEmailAsync(request.Email) != null)
+                throw new BadRequestException("email", $"User with email = {request.Email} already exists");
+
+            User account = new User
+            {
+                Email = request.Email,
+                UserName = request.Email,
+                Surname = request.Surname,
+                Name = request.Name,
+                Patronymic = request.Patronymic,
+                DateOfBirth = request.DateOfBirth,
+                CreatedAt = DateTime.Now
+            };
+
+            var result = await _userManager.CreateAsync(account, request.Password);
+            if (!result.Succeeded)
+                throw new AppException($"failed to create account by email = {request.Email}\n" +
+                    result.Errors.Select(error => $"Code = {error.Code}\tDescription = {error.Description}")
+                           .Aggregate((current, next) => $"{current}\n{next}"));
+
+            AccountDto response = _mapper.Map<AccountDto>(account);
 
             return response;
         }

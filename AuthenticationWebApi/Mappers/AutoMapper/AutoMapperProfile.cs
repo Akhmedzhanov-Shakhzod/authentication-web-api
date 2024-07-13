@@ -1,5 +1,6 @@
-﻿using AutoMapper;
-using AuthenticationWebApi.Dtos.Account;
+﻿using AuthenticationWebApi.Dtos.Account;
+using AuthenticationWebApi.Models.Account;
+using AutoMapper;
 using User = AuthenticationWebApi.Models.Account.Account;
 
 namespace AuthenticationWebApi.Mappers.AutoMapper
@@ -11,6 +12,10 @@ namespace AuthenticationWebApi.Mappers.AutoMapper
             CreateMap<User, AuthenticateResponse>();
 
             CreateMap<User, AccountDto>();
+
+            CreateMap<AccountSettings, AccountSettingsDto>();
+            CreateMap<AccountSettingsDto, AccountSettings>();
+            CreateMap<CreateAccountSettingsDto, AccountSettings>();
         }
     }
 }

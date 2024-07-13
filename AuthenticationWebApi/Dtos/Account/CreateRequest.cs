@@ -2,7 +2,7 @@
 
 namespace AuthenticationWebApi.Dtos.Account
 {
-    public class RegisterRequest
+    public class CreateRequest
     {
         [Required]
         public string Surname { get; set; }
@@ -18,6 +18,9 @@ namespace AuthenticationWebApi.Dtos.Account
         [Required]
         [EmailAddress]
         public string Email { get; set; }
+
+        [Required]
+        public List<string> Roles { get; set; }
 
         [Required]
         [RegularExpression(@"^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*\W|_).{6,}$",

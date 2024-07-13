@@ -23,10 +23,28 @@ namespace AuthenticationWebApi.Controllers.Account
         }
 
         [AllowAnonymous]
+        [HttpPost("register")]
+        public async Task<IActionResult> Register([Required] RegisterRequest request)
+        {
+            AccountDto response = await service.RegisterAsync(request);
+
+            return Ok(response);
+        }
+
+        [AllowAnonymous]
         [HttpPost("refresh-token")]
         public async Task<IActionResult> RefreshToken([Required] string refreshToken)
         {
             AuthenticateResponse response = await service.RefreshTokenAsync(refreshToken);
+
+            return Ok(response);
+        }
+
+
+        [HttpPut("put-settings")]
+        public async Task<IActionResult> PutSettings([Required] CreateAccountSettingsDto request)
+        {
+            AccountDto response = await service.PutSettingsAsync(request);
 
             return Ok(response);
         }
@@ -56,7 +74,7 @@ namespace AuthenticationWebApi.Controllers.Account
         }
 
         [HttpPost("createAccount")]
-        public async Task<IActionResult> Create([Required] RegisterRequest request)
+        public async Task<IActionResult> Create([Required] CreateRequest request)
         {
             AccountDto response = await service.CreateAsync(request);
 

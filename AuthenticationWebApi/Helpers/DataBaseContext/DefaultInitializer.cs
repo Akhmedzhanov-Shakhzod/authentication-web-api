@@ -1,4 +1,5 @@
 ﻿using AuthenticationWebApi.Helpers.Constant;
+using AuthenticationWebApi.Helpers.Enums;
 using AuthenticationWebApi.Models.Account;
 using Microsoft.AspNetCore.Identity;
 
@@ -28,9 +29,17 @@ namespace AuthenticationWebApi.Helpers.DataBaseContext
                     UserName = AppConstants.Account_AdminEmail,
                     Surname = "Default",
                     Name = "Administrator",
+                    DateOfBirth = new DateTime(2002, 03, 01),
+                    Settings = new AccountSettings
+                    {
+                        Language = Language.KG,
+                        Link = "admin"
+                    },
                     CreatedAt = DateTime.Now
                 };
+
                 IdentityResult result = await userManager.CreateAsync(admin, AppConstants.Account_AdminPassword);
+
                 if (result.Succeeded)
                 {
                     await userManager.AddToRoleAsync(admin, AppConstants.Role_ModeratorRole);
